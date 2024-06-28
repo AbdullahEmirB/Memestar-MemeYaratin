@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <title>Memestar - Ana Sayfa</title>
+  <style>
+    body {
+      background-color: #272727;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      color: white;
+      text-align: center;
+    }
+    .logo {
+      width: 300px;
+      height: 300px;
+      margin-bottom: 30px;
+    }
+    .description {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+    .button {
+      padding: 15px 30px;
+      background-color: #ff5722;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    .button:hover {
+      background-color: #e64a19;
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      padding: 10px;
+      border: 2px solid white;
+      border-radius: 30px;
+      animation: rgbAnimation 5s infinite alternate;
+    }
+    @keyframes rgbAnimation {
+      0% { color: #ff5722; }
+      20% { color: #e91e63; }
+      40% { color: #9c27b0; }
+      60% { color: #2196f3; }
+      80% { color: #4caf50; }
+      100% { color: #ff5722; }
+    }
+  </style>
+</head>
+<body>
+  <img src="../static/img/logo.svg" alt="logo" class="logo">
+  <p class="description">Merhaba 👋, Sende Kendi Meme Oluşturmak İster misin❔ O Zaman Alttaki Butona Basarak Meme Oluşturucuya Gidebilirsin ⬇️</p>
+  <a href="/meme" class="button">Meme Oluşturucuya Git</a>
+  <div class="footer">POWERD BY ABDULLAH EMİR</div>
+</body>
+</html>

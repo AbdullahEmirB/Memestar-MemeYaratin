@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koleksiyon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #272727;
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #ff6600;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .main-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+        .list__item a {
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .list__item a:hover {
+            text-decoration: underline;
+        }
+        .meme-collection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .meme {
+            background-color: #333333;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .meme:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .meme img {
+            max-width: 100%;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .meme:hover img {
+            transform: scale(1.05);
+        }
+        .text-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px;
+            text-align: center;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .meme:hover .text-container {
+            opacity: 1;
+        }
+        .top-text, .bottom-text {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #FFFFFF;
+        }
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="../static/img/logo.svg" alt="logo" width="50" height="50">
+        <ul class="main-list">
+            <li class="list__item">
+                <a href="{{ url_for('anasayfa') }}">Ana Sayfa</a>
+            </li>
+            <li class="list__item">
+                <a href="{{ url_for('geribildirim') }}">Geri Bildirim</a>
+            </li>
+        </ul>
+    </header>
+    <main>
+        <h1 style="text-align: center;">Koleksiyon</h1>
+        <div class="meme-collection">
+            {% if saved_memes %}
+                {% for meme in saved_memes %}
+                    <div class="meme">
+                        <img src="/static/img/{{meme.selected_image}}" alt="Meme Image">
+                        <div class="text-container">
+                            <p class="top-text">{{ meme.text_top }}</p>
+                            <p class="bottom-text">{{ meme.text_bottom }}</p>
+                        </div>
+                        <form method="POST" action="{{ url_for('delete_meme') }}">
+                            <input type="hidden" name="selected_image" value="{{ meme.selected_image }}">
+                            <button class="delete-button" type="submit">Sil</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center;">Koleksiyonunuz Şu Anda Boş.</p>
+            {% endif %}
+        </div>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>

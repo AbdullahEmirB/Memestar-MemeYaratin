@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <title>Memestar-Meme Oluşturucu</title>
+  <style>
+    /* Buton Stili */
+    input[type="submit"] {
+      background-color: #ff6600;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #e65c00; /* Hover rengi */
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <img src="../static/img/logo.svg" alt="logo" width="50" height="50">
+    <ul class="main-list">
+        <li class="list__item">
+          <a href="{{ url_for('anasayfa') }}">Ana Sayfa</a>
+        </li>
+        <li class="list__item">
+          <a href="{{ url_for('koleksiyon') }}">Koleksiyon</a>
+        </li>
+        <li class="list__item">
+          <a href="{{ url_for('geribildirim') }}">Geri Bildirim</a>
+        </li>
+    </ul>
+  </header>
+  <main>
+    {% block content %}
+    <div class="form-block">
+      <h1>Kendi Memenizi Oluşturun!</h1>
+      <form method="POST" action="{{ url_for('index') }}">
+        <ul class="form-list">
+          <li class="form-list_item">
+            <label for="image-selector">Bir mem seçin</label>
+            <select name="image-selector" id="image-selector">
+              <option value="logo.svg" {% if selected_image == 'logo.svg' %}selected{% endif %}>Bir Mem Seçin</option>
+              <option value="meme_1.jpg" {% if selected_image == 'meme_1.jpg' %}selected{% endif %}>Afet Kız</option>
+              <option value="meme_2.jpg" {% if selected_image == 'meme_2.jpg' %}selected{% endif %}>İki Düğme</option>
+              <option value="meme_3.jpg" {% if selected_image == 'meme_3.jpg' %}selected{% endif %}>Penguen</option>
+              <option value="meme_4.png" {% if selected_image == 'meme_4.png' %}selected{% endif %}>Ayı</option>
+              <option value="meme_5.jpg" {% if selected_image == 'meme_5.jpg' %}selected{% endif %}>Kitap Okuyan Adam</option>
+            </select>
+          </li>
+          <li class="form-list_item">
+            <label for="textTop">Üst metni buraya girin</label>
+            <input class="input_text" type="text" placeholder="Üst Metin" name="textTop">
+          </li>
+          <li class="form-list_item">
+            <label for="textBottom">Alt metni buraya girin</label>
+            <input class="input_text" type="text" placeholder="Alt Metin" name="textBottom">
+          </li>
+          <li class="form-list_item">
+            <label for="color-selector">Metin rengini ayarla</label>
+            <select name="color-selector" id="color-selector">
+              <option value="white" {% if selected_color == 'white' %}selected{% endif %}>Beyaz</option>
+              <option value="black" {% if selected_color == 'black' %}selected{% endif %}>Siyah</option>
+              <option value="yellow" {% if selected_color == 'yellow' %}selected{% endif %}>Sarı</option>
+              <option value="green" {% if selected_color == 'green' %}selected{% endif %}>Yeşil</option>
+              <option value="red" {% if selected_color == 'red' %}selected{% endif %}>Kırmızı</option>
+              <option value="blue" {% if selected_color == 'blue' %}selected{% endif %}>Mavi</option>
+              <option value="purple" {% if selected_color == 'purple' %}selected{% endif %}>Mor</option>
+              <option value="orange" {% if selected_color == 'orange' %}selected{% endif %}>Turuncu</option>
+            </select>
+          </li>
+          <li class="form-list_item">
+            <label for="textTop_y">Üst metnin Y ekseninde konumunu girin </label>
+            <input class="input_text" id="textTop_y" type="text" placeholder="Üst Metin Konum" name="textTop_y">
+          </li>
+          <li class="form-list_item">
+            <label for="textBottom_y">Alt metnin Y ekseninde konumunu girin</label>
+            <input class="input_text" id="textBottom_y" type="text" placeholder="Alt Metin Konum" name="textBottom_y">
+          </li>
+          <button type="submit">Meme Oluştur</button>
+        </ul>
+      </form>
+    </div>
+    <div class="meme-block" id="memeBlock">
+      <p class="text_top" style="color: {{selected_color}}; top: {{text_top_y}}px">{{text_top}}</p>
+      <img class="meme" src="{{ url_for('serve_images', path=selected_image) }}" alt="{{ selected_image }}">
+      <p class="text_bottom" style="color: {{selected_color}}; bottom: {{text_bottom_y}}px">{{text_bottom}}</p>
+    </div>
+    <form method="POST" action="{{ url_for('save_meme') }}">
+      <input type="hidden" name="selected_image" value="{{ selected_image }}">
+      <input type="hidden" name="text_top" value="{{ text_top }}">
+      <input type="hidden" name="text_bottom" value="{{ text_bottom }}">
+      <input type="submit" value="Kaydet">
+    </form>
+    {% endblock %}
+    </main>
+    <footer>
+    </footer>
